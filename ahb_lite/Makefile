@@ -8,4 +8,4 @@ sim: simv
 	./simv -gui
 
 clean:
-	rm -rf csrc DVEfiles simv.daidir .restartSimSession.tcl.old ahb_lite.vcd inter.vpd simv
+	rm -rf csrc DVEfiles simv.daidir .restartSimSession.tcl.old ahb_lite.vcd inter.vpd simv ucli.key

@@ -1,5 +1,5 @@
 
-module Controller #(parameter VALUE=3) (
+module Controller #(parameter VALUE=1) (
     input wire clock, readyout,
     input wire[7:0] rdata,
     output reg write, trans,
