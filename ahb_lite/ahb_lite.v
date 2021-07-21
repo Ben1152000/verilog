@@ -90,10 +90,10 @@ module Peripheral (
 ,   output reg          readyout
 ,   output reg  [7:0]   rdata
 );
-    reg mode;
-    reg mode_next;
-    reg readyout_next;
-    reg rdata_next;
+    reg         mode;
+    reg         mode_next;
+    reg         readyout_next;
+    reg [7:0]   rdata_next;
 
     always @(posedge clock) begin
         if (~rst_n) begin
