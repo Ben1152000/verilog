@@ -60,7 +60,7 @@ module Controller #(parameter VALUE=1) (
             end else begin
                 wdata_next = value;
             end
-            set_next = 1;
+            set_next = 1'b1;
         end else if (set & ~await) begin
             write_next = 1'b0;
             trans_next = 1'b1;
