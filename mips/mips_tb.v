@@ -1,5 +1,3 @@
-
-
 module Test_MIPS ();
 
     /* Make a regular pulsing clock */
@@ -7,7 +5,7 @@ module Test_MIPS ();
     reg rst_n = 1'b0;
     always #1 clk = !clk;
 
-    mips m (
+    mips core (
         .clk   (clk)
     ,   .rst_n (rst_n)
     );
