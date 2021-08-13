@@ -2,40 +2,43 @@
 module mem #(parameter MEMSIZE=1024) (
     input wire        clk
 ,   input wire        rst_n  /* reset active low */
-,   input wire        write  /* low is read, high is write */
-,   input wire [31:0] addr
-,   input wire [31:0] wdata
+,   input wire [31:0] raddr
 ,   output reg [31:0] rdata
+,   input wire        write
+,   input wire [31:0] waddr
+,   input wire [31:0] wdata
 );
 
-    reg [31:0] rdata_next;
     reg [7:0] mem [MEMSIZE - 1:0];
-
+    reg        write_next;
+    reg [31:0] waddr_next;
+    reg [31:0] wdata_next;
+    
     integer i;
 
     always @(posedge clk) begin
         if (~rst_n) begin
-            rdata <= 32'h0;
             for (i = 0; i < MEMSIZE; i = i + 1) 
                 mem[i] <= 8'h0;
         end else begin
-            rdata <= rdata_next;
+            if (write_next) begin
+                mem[waddr_next]     <= wdata_next[31:24];
+                mem[waddr_next + 1] <= wdata_next[23:16];
+                mem[waddr_next + 2] <= wdata_next[15:8];
+                mem[waddr_next + 3] <= wdata_next[7:0];
+            end
         end
     end
 
     always @* begin
-        rdata_next = rdata;
-        if (write) begin
-            mem[addr]     = wdata[31:24];
-            mem[addr + 1] = wdata[23:16];
-            mem[addr + 2] = wdata[15:8];
-            mem[addr + 3] = wdata[7:0];
-        end else begin
-            rdata_next[31:24] = mem[addr];
-            rdata_next[23:16] = mem[addr + 1];
-            rdata_next[15:8]  = mem[addr + 2];
-            rdata_next[7:0]   = mem[addr + 3];
-        end
+        write_next = write;
+        waddr_next = waddr;
+        wdata_next = wdata;
+
+        rdata[31:24] = mem[raddr];
+        rdata[23:16] = mem[raddr + 1];
+        rdata[15:8]  = mem[raddr + 2];
+        rdata[7:0]   = mem[raddr + 3];
     end
 
 endmodule

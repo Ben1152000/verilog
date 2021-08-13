@@ -14,12 +14,9 @@ module Test_MIPS ();
         $dumpfile("mips.vcd");
         $dumpvars(0, Test_MIPS);
 
-        #2;
-        rst_n = 1'b1;
-
+        #4; rst_n = 1'b1;
     end
 
     initial #64 $finish;
-
 
 endmodule
