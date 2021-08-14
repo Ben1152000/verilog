@@ -55,7 +55,11 @@ module control (
                         reg_write = 1'b1;
                     end
                     
-                    // 6'h2a:  /* slt */
+                    6'h2a: begin  /* slt */
+                        alu_op = 3'b111;
+                        reg_dst = 1'b1;
+                        reg_write = 1'b1;
+                    end
 
                 endcase
             end

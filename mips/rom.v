@@ -20,8 +20,8 @@ module rom (
             32'h0000002c:   rdata = 32'hAD6C0004;  // sw $t4 0x4($t3)
             32'h00000030:   rdata = 32'h8D6C0000;  // lw $t4 0x0($t3)
             32'h00000034:   rdata = 32'h8D6C0004;  // lw $t4 0x4($t3)
-            32'h00000038:   rdata = 32'h110BFFF7;  // beq $t0 $t3 0xFFFE
-            32'h0000003c:   rdata = 32'h00000000;
+            32'h00000038:   rdata = 32'h0128402A;  // slt $t0 $t0 $t1
+            32'h0000003c:   rdata = 32'h1100FFFE;  // beq $t0 $zero 0xFFFE
             default: rdata = 32'h0;
         endcase
     end
