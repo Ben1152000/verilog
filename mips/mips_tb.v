@@ -17,6 +17,6 @@ module Test_MIPS ();
         #4; rst_n = 1'b1;
     end
 
-    initial #64 $finish;
+    initial #4096 $finish;
 
 endmodule

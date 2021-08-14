@@ -6,6 +6,7 @@ module control (
 ,   output reg       alu_shift
 ,   output reg       branch
 ,   output reg       mem_to_reg
+,   output reg       mem_read
 ,   output reg       mem_write
 ,   output reg       reg_dst
 ,   output reg       reg_write
@@ -17,6 +18,7 @@ module control (
         alu_shift = 1'b0;
         branch = 1'b0;
         mem_to_reg = 1'b0;
+        mem_read = 1'b0;
         mem_write = 1'b0;
         reg_dst = 1'b0;
         reg_write = 1'b0;
@@ -26,6 +28,13 @@ module control (
                 case (funct)
                     6'h0: begin  /* sll */
                         alu_op = 3'b100;
+                        alu_shift = 1'b1;
+                        reg_dst = 1'b1;
+                        reg_write = 1'b1;
+                    end
+
+                    6'h2: begin  /* srl */
+                        alu_op = 3'b101;
                         alu_shift = 1'b1;
                         reg_dst = 1'b1;
                         reg_write = 1'b1;
@@ -81,6 +90,7 @@ module control (
                 alu_op = 3'b010;
                 alu_src = 1'b1;
                 mem_to_reg = 1'b1;
+                mem_read = 1'b1;
                 reg_write = 1'b1;
             end
 

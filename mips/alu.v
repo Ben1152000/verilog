@@ -13,7 +13,7 @@ module alu (
             3'b010: out = in1 + in2;  /* add */
             3'b011: out = 32'h0;
             3'b100: out = in2 << in1; /* sll */
-            3'b101: out = 32'h0;
+            3'b101: out = in2 >> in1; /* srl */
             3'b110: out = in1 - in2;  /* sub */
             3'b111: out = in1 < in2;  /* slt */
         endcase

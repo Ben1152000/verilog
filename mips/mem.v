@@ -2,6 +2,7 @@
 module mem #(parameter MEMSIZE=1024) (
     input wire        clk
 ,   input wire        rst_n  /* reset active low */
+,   input wire        read
 ,   input wire [31:0] raddr
 ,   output reg [31:0] rdata
 ,   input wire        write
@@ -9,7 +10,7 @@ module mem #(parameter MEMSIZE=1024) (
 ,   input wire [31:0] wdata
 );
 
-    reg [7:0] mem [MEMSIZE - 1:0];
+    reg [7:0]  mem [MEMSIZE - 1:0];
     reg        write_next;
     reg [31:0] waddr_next;
     reg [31:0] wdata_next;
@@ -32,13 +33,20 @@ module mem #(parameter MEMSIZE=1024) (
 
     always @* begin
         write_next = write;
-        waddr_next = waddr;
-        wdata_next = wdata;
+        waddr_next = 32'h0;
+        wdata_next = 32'h0;
+        if (write) begin
+            waddr_next = waddr;
+            wdata_next = wdata;
+        end
 
-        rdata[31:24] = mem[raddr];
-        rdata[23:16] = mem[raddr + 1];
-        rdata[15:8]  = mem[raddr + 2];
-        rdata[7:0]   = mem[raddr + 3];
+        rdata = 32'h0;
+        if (read) begin
+            rdata[31:24] = mem[raddr];
+            rdata[23:16] = mem[raddr + 1];
+            rdata[15:8]  = mem[raddr + 2];
+            rdata[7:0]   = mem[raddr + 3];
+        end
     end
 
 endmodule

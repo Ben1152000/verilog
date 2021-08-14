@@ -25,6 +25,7 @@ module mips (
     wire alu_shift;
     wire branch;
     wire mem_to_reg;
+    wire mem_read;
     wire mem_write;
     wire reg_dst;
     wire reg_write;
@@ -62,6 +63,7 @@ module mips (
     ,   .alu_shift  (alu_shift)
     ,   .branch     (branch)
     ,   .mem_to_reg (mem_to_reg)
+    ,   .mem_read   (mem_read)
     ,   .mem_write  (mem_write)
     ,   .reg_dst    (reg_dst)
     ,   .reg_write  (reg_write)
@@ -70,6 +72,7 @@ module mips (
     mem mem (
         .clk   (clk)
     ,   .rst_n (rst_n)
+    ,   .read  (mem_read)
     ,   .raddr (alu_out)
     ,   .rdata (rdata)
     ,   .write (mem_write)
